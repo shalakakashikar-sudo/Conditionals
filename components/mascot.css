@@ -1,0 +1,118 @@
+
+/* Mascot Wrapper */
+.mascot-wrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.mascot-container {
+  width: 260px;
+  height: 260px;
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Gentle Cosmic Float */
+.nebula-float-idle {
+  animation: nebula-soft-float 4s ease-in-out infinite alternate;
+}
+
+@keyframes nebula-soft-float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
+}
+
+/* Speech Bubble */
+.speech-bubble {
+  background: white;
+  padding: 1.25rem 1.5rem; /* Increased padding slightly to accommodate the tail intersection */
+  border-radius: 2rem;
+  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+  border: 4px solid #fdf4ff;
+  max-width: 280px;
+  margin-bottom: 1.2rem;
+  position: relative;
+  pointer-events: auto;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: bottom center;
+  z-index: 10005;
+}
+
+/* Ensure text is above the tail */
+.speech-bubble p {
+  position: relative;
+  z-index: 10;
+}
+
+.bubble-visible { opacity: 1; transform: scale(1) translateY(0); }
+.bubble-hidden { opacity: 0; transform: scale(0.6) translateY(30px); pointer-events: none; }
+
+.bubble-tail {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 28px;
+  height: 28px;
+  background: white;
+  border-right: 4px solid #fdf4ff;
+  border-bottom: 4px solid #fdf4ff;
+  z-index: 1; /* Tail stays below text but above bubble border background to blend */
+}
+
+/* Eye Highlights & Sparkles */
+.galaxy-sparkle {
+  animation: sparkle-twinkle 3s infinite ease-in-out;
+}
+@keyframes sparkle-twinkle {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+.heart-eye {
+  fill: #ff71cf;
+  animation: heart-beat 0.6s infinite alternate;
+  transform-origin: 0px -5px;
+}
+@keyframes heart-beat {
+  from { transform: scale(1.8) translate(0, 2); }
+  to { transform: scale(2.05) translate(0, 2); }
+}
+
+/* Sleepy Animation */
+.sleepy-z-group text {
+  opacity: 0;
+  animation: z-float 3s infinite;
+}
+.z1 { animation-delay: 0s !important; }
+.z2 { animation-delay: 1s !important; }
+.z3 { animation-delay: 2s !important; }
+
+@keyframes z-float {
+  0% { transform: translate(0, 0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translate(20px, -40px); opacity: 0; }
+}
+
+/* Helmet Glass */
+.helmet-glass-cute {
+  fill: rgba(255, 255, 255, 0.04);
+  stroke: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(1.5px);
+}
+
+.expression-thinking .nebula-head-group {
+  animation: think-tilt 2.5s infinite ease-in-out alternate;
+}
+@keyframes think-tilt {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(8deg); }
+}

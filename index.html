@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditionals - Starry Logic Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            scroll-behavior: smooth;
+            background: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Starry Night Animation */
+        .stars-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 10px white; }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: floatOrb 20s infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100px, 100px); }
+        }
+
+        /* Glassmorphism Refined for Contrast */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-glow-teal { border-color: #2dd4bf; }
+        .glass-glow-peach { border-color: #fb923c; }
+        .glass-glow-lavender { border-color: #a855f7; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        .animate-float { animation: float 5s ease-in-out infinite; }
+
+        @keyframes jump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px); }
+        }
+        .animate-jump { animation: jump 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .text-glow {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .heading-shadow {
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body>
+    <div class="stars-background" id="stars-host">
+        <div class="orb w-[500px] h-[500px] bg-indigo-500 top-[-10%] left-[-10%]"></div>
+        <div class="orb w-[500px] h-[500px] bg-purple-900 bottom-[-10%] right-[-10%]"></div>
+    </div>
+    <div id="root"></div>
+
+    <script type="module" src="./index.tsx"></script>
+
+    <script>
+        const host = document.getElementById('stars-host');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            host.appendChild(star);
+        }
+    </script>
+</body>
+</html>
