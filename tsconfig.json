@@ -1,4 +1,3 @@
-
 {
   "compilerOptions": {
     "target": "ESNext",
@@ -16,10 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "baseUrl": "."
   },
   "include": ["index.tsx", "App.tsx", "types.ts", "data.ts", "components/**/*", "data/**/*"],
   "exclude": ["node_modules", "dist", "vite.config.ts"],
