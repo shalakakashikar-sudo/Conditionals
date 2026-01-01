@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Question, ConditionalType } from '../types.ts';
-import { QUESTIONS } from '../data.ts';
+import { Question, ConditionalType } from '../types';
+import { QUESTIONS } from '../data';
 
 interface QuizProps {
   type: ConditionalType;

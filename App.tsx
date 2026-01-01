@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import Mascot from './components/Mascot.tsx';
-import Quiz from './components/Quiz.tsx';
-import { LESSONS } from './data.ts';
-import { ConditionalType } from './types.ts';
+import Mascot from './components/Mascot';
+import Quiz from './components/Quiz';
+import { LESSONS } from './data';
+import { ConditionalType } from './types';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ConditionalType>('Master Guide');

@@ -1,13 +1,13 @@
 
-import { LESSONS } from './data/lessons.ts';
-import { ZERO_QUESTIONS } from './data/zero.ts';
-import { FIRST_QUESTIONS } from './data/first.ts';
-import { SECOND_QUESTIONS } from './data/second.ts';
-import { THIRD_QUESTIONS } from './data/third.ts';
-import { MIXED1_QUESTIONS } from './data/mixed1.ts';
-import { MIXED2_QUESTIONS } from './data/mixed2.ts';
-import { OVERALL_QUESTIONS } from './data/overall.ts';
-import { Question } from './types.ts';
+import { LESSONS } from './data/lessons';
+import { ZERO_QUESTIONS } from './data/zero';
+import { FIRST_QUESTIONS } from './data/first';
+import { SECOND_QUESTIONS } from './data/second';
+import { THIRD_QUESTIONS } from './data/third';
+import { MIXED1_QUESTIONS } from './data/mixed1';
+import { MIXED2_QUESTIONS } from './data/mixed2';
+import { OVERALL_QUESTIONS } from './data/overall';
+import { Question } from './types';
 
 export { LESSONS };
 
