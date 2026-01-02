@@ -35,7 +35,7 @@ const App: React.FC = () => {
 
     window.addEventListener('keydown', handleGlobalKeyDown);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
-  }, [showQuiz]);
+  }, [showQuiz, tabs.length]);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -172,6 +172,38 @@ const App: React.FC = () => {
                     </tbody>
                   </table>
                </div>
+            </div>
+
+            {/* NEW SECTION: The Logic Evolution */}
+            <div className="glass p-12 md:p-16 rounded-[4rem] bg-white border-4 border-slate-100 shadow-2xl overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-teal-50 rounded-full blur-3xl opacity-60 -mr-32 -mt-32"></div>
+              <h3 className="text-4xl font-black text-slate-950 mb-4 flex items-center gap-4 relative z-10">
+                <span className="text-5xl">🚗</span> The Logic Evolution
+              </h3>
+              <p className="text-xl text-slate-500 mb-12 font-bold italic relative z-10">Watch how one story changes as we travel away from reality...</p>
+              
+              <div className="space-y-6 relative z-10">
+                {[
+                  { type: 'Type 0', label: 'THE LAW', text: 'If you win the lottery, you become rich.', mood: '💯 General Fact', color: 'border-teal-400 bg-teal-50/30' },
+                  { type: 'Type 1', label: 'THE PLAN', text: 'If I win the lottery tomorrow, I will buy a car.', mood: '🗓️ Real Possibility', color: 'border-orange-400 bg-orange-50/30' },
+                  { type: 'Type 2', label: 'THE DREAM', text: 'If I won the lottery today, I would buy a car.', mood: '🦄 Imaginary Now', color: 'border-purple-400 bg-purple-50/30' },
+                  { type: 'Type 3', label: 'THE REGRET', text: 'If I had won the lottery yesterday, I would have bought a car.', mood: '⌛ Impossible Past', color: 'border-pink-400 bg-pink-50/30' },
+                  { type: 'Mixed', label: 'THE BRIDGE', text: 'If I had won the lottery then, I would be rich now.', mood: '🧩 Past ➔ Present', color: 'border-indigo-400 bg-indigo-50/30' }
+                ].map((item, i) => (
+                  <div key={i} className={`p-8 rounded-[2.5rem] border-4 ${item.color} transition-all hover:scale-[1.01] hover:shadow-lg flex flex-col md:flex-row md:items-center gap-6`}>
+                    <div className="flex flex-col min-w-[140px]">
+                      <span className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">{item.type}</span>
+                      <span className="text-xl font-black text-slate-900">{item.label}</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-2xl font-black text-indigo-950 italic">"{item.text}"</p>
+                    </div>
+                    <div className="px-5 py-2 rounded-full bg-white/60 border border-white text-xs font-black uppercase tracking-widest text-slate-500 shadow-sm whitespace-nowrap">
+                      {item.mood}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="glass p-12 md:p-16 rounded-[4rem] bg-indigo-950 border-4 border-indigo-400 text-white shadow-2xl">
