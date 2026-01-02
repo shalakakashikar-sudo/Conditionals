@@ -10,6 +10,33 @@ const App: React.FC = () => {
   const [showQuiz, setShowQuiz] = useState(false);
   const mainContentRef = useRef<HTMLElement>(null);
 
+  const tabs: ConditionalType[] = [
+    'Master Guide', 'Zero', 'First', 'Second', 'Third', 
+    'Mixed Conditional 1', 'Mixed Conditional 2', 'Overall'
+  ];
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      // Tab switching: Keys 1-8
+      const keyNum = parseInt(e.key);
+      if (!isNaN(keyNum) && keyNum >= 1 && keyNum <= tabs.length) {
+        setActiveTab(tabs[keyNum - 1]);
+        setShowQuiz(false);
+      }
+
+      // Exit quiz: Escape
+      if (e.key === 'Escape' && showQuiz) {
+        setShowQuiz(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, [showQuiz]);
+
   useEffect(() => {
     requestAnimationFrame(() => {
       if (activeTab === 'Master Guide' && !showQuiz) {
@@ -31,16 +58,19 @@ const App: React.FC = () => {
     return 'glass-glow-teal';
   };
 
-  const NavButton = ({ type, label }: { type: ConditionalType, label: string }) => (
+  const NavButton = ({ type, label, index }: { type: ConditionalType, label: string, index: number }) => (
     <button
       onClick={() => { setActiveTab(type); setShowQuiz(false); }}
-      className={`px-6 py-3 rounded-full font-black transition-all duration-500 text-sm whitespace-nowrap shadow-xl border-2 ${
+      className={`group relative px-6 py-3 rounded-full font-black transition-all duration-500 text-sm whitespace-nowrap shadow-xl border-2 ${
         activeTab === type 
           ? 'bg-teal-500 text-white border-white scale-110 shadow-teal-500/40' 
           : 'bg-white/10 text-white border-white/20 hover:bg-white/30 hover:border-teal-300'
       }`}
     >
-      {label}
+      <span className="mr-1">{label}</span>
+      <span className="absolute -top-2 -right-2 bg-indigo-950 text-white text-[8px] px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity border border-white/20">
+        {index + 1}
+      </span>
     </button>
   );
 
@@ -70,22 +100,25 @@ const App: React.FC = () => {
       {/* Navigation */}
       <div className="w-full sticky top-6 z-40 px-4 flex justify-center">
         <nav className="glass p-3 rounded-[3.5rem] flex items-center gap-2 overflow-x-auto max-w-full no-scrollbar shadow-2xl bg-white/10 backdrop-blur-xl border-white/40">
-          <NavButton type="Master Guide" label="Master Guide 🛠️" />
-          <NavButton type="Zero" label="Type 0" />
-          <NavButton type="First" label="Type 1" />
-          <NavButton type="Second" label="Type 2" />
-          <NavButton type="Third" label="Type 3" />
-          <NavButton type="Mixed Conditional 1" label="Mixed 1" />
-          <NavButton type="Mixed Conditional 2" label="Mixed 2" />
+          <NavButton type="Master Guide" label="Master Guide 🛠️" index={0} />
+          <NavButton type="Zero" label="Type 0" index={1} />
+          <NavButton type="First" label="Type 1" index={2} />
+          <NavButton type="Second" label="Type 2" index={3} />
+          <NavButton type="Third" label="Type 3" index={4} />
+          <NavButton type="Mixed Conditional 1" label="Mixed 1" index={5} />
+          <NavButton type="Mixed Conditional 2" label="Mixed 2" index={6} />
           <button
             onClick={() => { setActiveTab('Overall'); setShowQuiz(false); }}
-            className={`px-8 py-3 rounded-full font-black transition-all duration-300 text-sm whitespace-nowrap ml-2 shadow-xl border-2 ${
+            className={`group relative px-8 py-3 rounded-full font-black transition-all duration-300 text-sm whitespace-nowrap ml-2 shadow-xl border-2 ${
               activeTab === 'Overall' 
                 ? 'bg-orange-500 text-white border-white scale-105' 
                 : 'bg-orange-600/80 text-white border-orange-400/40 hover:bg-orange-500'
             }`}
           >
             Final Exam 🏆
+            <span className="absolute -top-2 -right-2 bg-indigo-950 text-white text-[8px] px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity border border-white/20">
+              8
+            </span>
           </button>
         </nav>
       </div>
