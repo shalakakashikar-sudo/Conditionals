@@ -59,30 +59,19 @@ export default function Quiz({ type, onClose }: QuizProps) {
     }
   }, [hasAnswered]);
 
-  /**
-   * core logic to start/reset the quiz with randomization
-   */
   const startQuiz = () => {
     let finalSelection: Question[] = [];
 
     if (type === 'Overall') {
-      /**
-       * FINAL EXAM LOGIC:
-       * Mixes specially designed overall questions with the entire pulled database.
-       * We intentionally pick a subset of "Overall" tagged questions and fill the rest 
-       * with random selections from all other categories.
-       */
       const special = QUESTIONS.filter(q => q.type === 'Overall');
       const others = QUESTIONS.filter(q => q.type !== 'Overall');
 
-      // Filter by difficulty if requested
       const filteredSpecial = targetDifficulty === 'All' ? special : special.filter(q => q.difficulty === targetDifficulty);
       const filteredOthers = targetDifficulty === 'All' ? others : others.filter(q => q.difficulty === targetDifficulty);
 
       const shuffledSpecial = shuffleArray(filteredSpecial);
       const shuffledOthers = shuffleArray(filteredOthers);
 
-      // Aim for roughly 30% special questions, but at least 2 if available
       const idealSpecialCount = Math.max(2, Math.floor(targetCount * 0.3));
       const actualSpecialCount = Math.min(shuffledSpecial.length, idealSpecialCount);
       const actualOthersCount = Math.min(shuffledOthers.length, targetCount - actualSpecialCount);
@@ -92,13 +81,8 @@ export default function Quiz({ type, onClose }: QuizProps) {
         ...shuffledOthers.slice(0, actualOthersCount)
       ];
       
-      // Shuffle the mixed set so they aren't clumped together
       finalSelection = shuffleArray(finalSelection);
     } else {
-      /**
-       * CATEGORY SPECIFIC:
-       * Pulls only from the specific conditional requested.
-       */
       let pool = QUESTIONS.filter(q => q.type === type);
       if (targetDifficulty !== 'All') {
         pool = pool.filter(q => q.difficulty === targetDifficulty);
@@ -106,16 +90,11 @@ export default function Quiz({ type, onClose }: QuizProps) {
       finalSelection = shuffleArray(pool).slice(0, targetCount);
     }
 
-    // Shuffle the internal options for MCQ/Boolean questions
     const randomizedQuestions = finalSelection.map(q => {
       if ((q.questionType === 'multiple-choice' || q.questionType === 'boolean') && q.options) {
         const originalOptions = [...q.options];
         const correctAnswerText = originalOptions[q.correctAnswer as number];
-        
-        // Shuffle the options array
         const shuffledOptions = shuffleArray(originalOptions);
-        
-        // Find the new index of the correct answer string
         const newCorrectIndex = shuffledOptions.indexOf(correctAnswerText);
         
         return {
@@ -127,7 +106,6 @@ export default function Quiz({ type, onClose }: QuizProps) {
       return q;
     });
     
-    // Reset state for the fresh session
     setActiveQuestions(randomizedQuestions);
     setUserAnswers(new Array(randomizedQuestions.length).fill(undefined));
     setCurrentIndex(0);
@@ -206,7 +184,6 @@ export default function Quiz({ type, onClose }: QuizProps) {
     }
   };
 
-  // 1. Setup Screen
   if (isSetup) {
     const counts = [5, 10, 20, 30, 40, 50];
     const difficulties: DifficultyFilter[] = ['All', 'Easy', 'Medium', 'Hard'];
@@ -273,7 +250,6 @@ export default function Quiz({ type, onClose }: QuizProps) {
     );
   }
 
-  // 2. Empty State
   if (activeQuestions.length === 0) {
     return (
       <div ref={quizTopRef} className="glass p-20 rounded-[4rem] text-center border-white shadow-2xl scroll-mt-32">
@@ -297,7 +273,6 @@ export default function Quiz({ type, onClose }: QuizProps) {
     );
   }
 
-  // 3. Review State
   if (showReview) {
     return (
       <div ref={quizTopRef} className="glass p-12 md:p-16 rounded-[4rem] max-w-4xl w-full mx-auto animate-scale border-white shadow-2xl scroll-mt-32">
@@ -431,7 +406,6 @@ export default function Quiz({ type, onClose }: QuizProps) {
     );
   }
 
-  // 4. Result State
   if (showResult) {
     return (
       <div ref={quizTopRef} className="glass p-24 rounded-[5rem] text-center animate-scale border-white shadow-2xl scroll-mt-32">
@@ -462,7 +436,6 @@ export default function Quiz({ type, onClose }: QuizProps) {
     );
   }
 
-  // 5. Active Quiz UI
   return (
     <div ref={quizTopRef} className="glass p-12 md:p-16 rounded-[4rem] max-w-4xl w-full mx-auto relative overflow-hidden animate-scale border-white shadow-2xl bg-white scroll-mt-32">
       <div className="absolute top-0 left-0 w-full h-3 bg-slate-50">

@@ -98,7 +98,6 @@ const App: React.FC = () => {
           <Quiz type={activeTab} onClose={() => setShowQuiz(false)} />
         ) : activeTab === 'Master Guide' ? (
           <div className="space-y-12 animate-scale">
-            {/* 1. Definition Section */}
             <div className="glass p-12 md:p-16 rounded-[4rem] border-white shadow-2xl">
                <h2 className="text-5xl font-black text-indigo-950 mb-8 border-b-4 border-indigo-100 pb-4 inline-block">The Logic Blueprint ✨</h2>
                <p className="text-2xl text-slate-900 leading-relaxed font-black mb-10">
@@ -118,7 +117,6 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* 2. The Golden Rule Table */}
             <div className="glass p-12 md:p-16 rounded-[4rem] border-l-[16px] border-teal-500 bg-white shadow-xl">
                <h3 className="text-4xl font-black text-slate-950 mb-8">💡 The Distance Principle</h3>
                <p className="text-2xl text-slate-900 mb-10 font-black">
@@ -143,7 +141,6 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* 3. The 5-Step Logic Test (Interactive Cards) */}
             <div className="glass p-12 md:p-16 rounded-[4rem] bg-indigo-950 border-4 border-indigo-400 text-white shadow-2xl">
                <h3 className="text-4xl font-black mb-12 flex items-center gap-4">
                  <span className="text-5xl">🧠</span> The 5-Step Logic Matrix
@@ -168,7 +165,6 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* 4. Advanced Wing: Inversion & Connectors */}
             <div className="grid md:grid-cols-2 gap-10">
                <div className="glass p-12 rounded-[4rem] bg-white border-4 border-indigo-100 shadow-xl">
                  <h4 className="font-black text-indigo-700 uppercase tracking-[0.3em] text-sm mb-8">🎩 Master Style: Inversion</h4>
@@ -200,7 +196,6 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* 5. Warning Lab: Tips & Mistakes */}
             <div className="grid md:grid-cols-2 gap-10">
                <div className="bg-teal-50 p-12 rounded-[4rem] border-4 border-teal-200 shadow-xl">
                   <h4 className="font-black text-teal-800 mb-8 uppercase text-sm tracking-[0.3em] flex items-center gap-3">
